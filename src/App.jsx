@@ -6,6 +6,7 @@ import SignupPage from './pages/SignupPage';
 import AdminPage from './pages/AdminPage';
 import CartPage from './pages/CartPage';
 import OrdersPage from './pages/OrdersPage';
+import Navbar from './components/ui/Navbar'
 function App() {
 
   return (
