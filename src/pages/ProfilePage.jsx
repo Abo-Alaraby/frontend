@@ -1,13 +1,14 @@
 import React from 'react'
 import Navbar from '../components/ui/Navbar'
-const CartPage = () => {
+
+const ProfilePage = () => {
   return (
     <>
       <Navbar />
-      <div>CartPage</div>
+      <div>ProfilePage</div>
     </>
     
   )
 }
 
-export default CartPage
+export default ProfilePage
