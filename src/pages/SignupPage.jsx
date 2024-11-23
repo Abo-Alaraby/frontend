@@ -1,5 +1,8 @@
 import {useState} from 'react'
 import Navbar from '../components/ui/Navbar'
+import axios from '../api/axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -17,8 +20,18 @@ const SignupPage = () => {
       [name]: value,
     });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
+      const response = await axios.post('/user/signup',formData);
+      console.log(response);
+      toast.success('Signup successful!');
+    }
+    catch (error){
+      console.error('Error submitting form data:', error);
+      toast.error('Signup failed. Please try again.');
+    }
+
   };
   return (
     <>
@@ -96,6 +109,7 @@ const SignupPage = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

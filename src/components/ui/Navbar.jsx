@@ -1,7 +1,27 @@
 import { Link } from 'react-router-dom'
 import { ShoppingCart, User } from 'lucide-react'
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(()=> {
+    const checkForJwtCookiePresent = () => {
+      const cookies = document.cookie.split(";");
+      let foundJwt = false;
+      cookies.forEach((cookie) => {
+        const [name, value] = cookie.trim().split('=');
+        console.log(name)
+        if (name === 'jwt' && value) {
+          foundJwt = true;
+        }
+      });
+      setIsLoggedIn(foundJwt);
+    };
+    checkForJwtCookiePresent();
+  }, []);
+
+
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4">
@@ -19,10 +39,15 @@ const Navbar = () => {
               <ShoppingCart className="inline-block w-5 h-5 mr-1" />
               Cart
             </Link>
+            {isLoggedIn ? <Link to="/profile" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm">
+                <User className="inline-block w-5 h-5 mr-1" />
+                Profile
+              </Link>:
             <Link to="/login" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm">
               <User className="inline-block w-5 h-5 mr-1" />
               Login
             </Link>
+            }
           </div>
         </div>
       </div>
