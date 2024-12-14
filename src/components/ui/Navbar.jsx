@@ -11,7 +11,6 @@ const Navbar = () => {
       let foundJwt = false;
       cookies.forEach((cookie) => {
         const [name, value] = cookie.trim().split('=');
-        console.log(name)
         if (name === 'jwt' && value) {
           foundJwt = true;
         }

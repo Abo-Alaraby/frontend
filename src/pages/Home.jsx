@@ -2,36 +2,51 @@ import  { useEffect, useState } from 'react';
 import Navbar from '../components/ui/Navbar';
 import axios from '../api/axios';
 import { Link } from 'react-router-dom';
-
+import Search from '../components/ui/Search';
+import { ToastContainer, toast } from 'react-toastify';
 const Home = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('/product');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
     fetchProducts();
   }, []);
 
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('/product');
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
   const handleAddToCart = (productId) => {
     // Handle add to cart logic here
     console.log(`Product ${productId} added to cart`);
   };
 
+  const handleSearch = async (query) => {
+    if (!query){
+      fetchProducts();
+      return;
+    }
+    try {
+      const response = await axios.get(`products/search?name=${query}`);
+      setProducts(response.data);
+    // eslint-disable-next-line no-unused-vars
+    } catch (error) {
+      toast.error("no products found")
+      setProducts(()=>[])
+    }
+  };
   return (
     <>
       <Navbar />
       <div className="w-2/3 mx-auto px-4 flex-col justify-center">
         <h1 className="text-3xl font-bold my-4">Products</h1>
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <Search onSearch={handleSearch} />
+        <div className="w-full my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {products.map((product) => (
-            <div key={product._id} className="border p-4 rounded-lg shadow-md">
+            <div key={product._id} className="border p-4 w-full rounded-lg shadow-md">
               <img src={product.image} alt={product.name} className="w-full h-48 object-cover mb-4 rounded-md" />
               <h2 className="text-xl font-semibold">{product.name}</h2>
               <p className="text-gray-700">{product.description}</p>
@@ -51,6 +66,7 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };
