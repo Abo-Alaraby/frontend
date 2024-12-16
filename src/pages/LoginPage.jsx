@@ -25,7 +25,6 @@ const LoginPage = () => {
       const response = await axios.post('/user/login', formData);
       console.log(response);
       toast.success('Login successful!');
-      // Handle successful login, e.g., redirect to dashboard
     } catch (error) {
       console.error('Error submitting form data:', error);
       toast.error('Login failed. Please try again.');
