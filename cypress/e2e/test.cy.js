@@ -6,8 +6,8 @@ describe('Full expereince test', () => {
         cy.wait(1000)//Wait a second so the user can see the action
         cy.contains('a', 'Login').click()//click login
         cy.wait(1000)//Wait a second so the user can see the action
-        cy.get('input[type="email"]').type('omarsheriff5656@gmail.com')//Enter user email
-        cy.get('input[type="password"]').type("12345678")//Enter user password
+        cy.get('input[type="email"]').type('a@gmail.com')//Enter user email
+        cy.get('input[type="password"]').type("1234")//Enter user password
         cy.wait(1000)//Wait a second so the user can see the action
         cy.contains('button', 'Login').click()//Click login, login successful and redirected to home page with products
 
