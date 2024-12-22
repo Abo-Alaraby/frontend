@@ -4,8 +4,10 @@ import axios from '../api/axios';
 import { Link } from 'react-router-dom';
 import Search from '../components/ui/Search';
 import { ToastContainer, toast } from 'react-toastify';
+
 const Home = () => {
   const [products, setProducts] = useState([]);
+
 
   useEffect(() => {
     fetchProducts();
@@ -19,10 +21,22 @@ const Home = () => {
       console.error('Error fetching products:', error);
     }
   };
-  const handleAddToCart = (productId) => {
-    // Handle add to cart logic here
-    console.log(`Product ${productId} added to cart`);
+  const handleAddToCart = async (productId) => {
+    const url = `/cart/${productId}`;  // Product ID is used directly in the URL for patch request
+  
+    console.log(`Making API call to: ${url}`);
+  
+    try {
+      const response = await axios.patch(url, {});  // Assuming no body is needed if just adding the product directly
+      console.log('Server Response:', response);
+      toast.success('Product added to cart');
+    } catch (error) {
+      console.error('Error adding product to cart:', error.response ? error.response.data : error);
+      toast.error(`Error adding product to cart: ${error.response ? error.response.data.message : "Check console for details."}`);
+    }
   };
+  
+
 
   const handleSearch = async (query) => {
     if (!query){
