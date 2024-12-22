@@ -1,20 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const OrdersPage = () => {
   const [order, setOrder] = useState(null);
   const [productDetails, setProductDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-  const orderId = "6767f33de4bdcce32943feb2"; // Example orderId
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Details are not fetched until the user requests them by clicking 'View Order'
-  }, []);
-
+  const {id} = useParams();
+  const orderId = id;
   const fetchOrderDetails = async () => {
     setLoading(true);
     try {
@@ -57,9 +53,11 @@ const OrdersPage = () => {
     }
   };
 
+
+  //add sending api
   const handlePurchaseCompletion = () => {
     toast.success('Thank you for your purchase!');
-    navigate('/Thankyou'); // Redirect to a thank you page after purchase completion
+    navigate('/Thankyou');
   };
 
   const toggleDetailsVisibility = () => {

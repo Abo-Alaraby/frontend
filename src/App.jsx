@@ -7,8 +7,8 @@ import AdminPage from './pages/AdminPage';
 import CartPage from './pages/CartPage';
 import OrdersPage from './pages/OrdersPage';
 import ProfilePage from './pages/ProfilePage';
-import ProductPage from './pages/ProductPage';
 import Thankyoupage from './pages/Thankyoupage';
+import AllOrdersPage from './pages/AllOrdersPage'
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/orders/:id" element={<OrdersPage />} />
-          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/orders" element={<AllOrdersPage />} />
+          <Route path="/order/:id" element={<OrdersPage />} />
           <Route path="/Thankyou" element={<Thankyoupage />} />
         </Routes>
       </Router>

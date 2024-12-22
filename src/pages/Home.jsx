@@ -1,7 +1,6 @@
 import  { useEffect, useState } from 'react';
 import Navbar from '../components/ui/Navbar';
 import axios from '../api/axios';
-import { Link } from 'react-router-dom';
 import Search from '../components/ui/Search';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -66,12 +65,9 @@ const Home = () => {
               <p className="text-gray-700">{product.description}</p>
               <p className="text-gray-900 font-bold">${product.price}</p>
               <div className="mt-4 flex justify-between items-center">
-                <Link to={`/product/${product._id}`} className="text-indigo-600 hover:text-indigo-800">
-                  View Product
-                </Link>
                 <button
                   onClick={() => handleAddToCart(product._id)}
-                  className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                  className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
                 >
                   Add to Cart
                 </button>

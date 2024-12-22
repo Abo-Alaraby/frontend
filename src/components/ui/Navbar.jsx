@@ -31,8 +31,8 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex items-center">
-            <Link to="/products" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm">
-              Products
+            <Link to="/orders" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm">
+              Orders
             </Link>
             <Link to="/cart" className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm">
               <ShoppingCart className="inline-block w-5 h-5 mr-1" />

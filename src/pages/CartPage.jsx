@@ -26,9 +26,8 @@ const CartPage = () => {
   };
 
   const fetchCartItems = async () => {
-    const cartId = '6767bf1ffa261e1a87b8c693';
     try {
-      const response = await axios.get(`/cart/${cartId}`, {
+      const response = await axios.get(`/cart`, {
         withCredentials: true,
       });
       const products = response.data.products || [];
@@ -95,7 +94,7 @@ const CartPage = () => {
         setCartItems([]);
         setCartTotal(0);
         toast.success('Purchase successful!');
-        navigate('/orders/:id'); // Use navigate instead of push
+        navigate(`/order/${response.data.orderId}`); // Use navigate instead of push
       }
     } catch (error) {
       console.error('Failed to place order:', error);
