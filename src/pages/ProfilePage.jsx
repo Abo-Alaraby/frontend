@@ -20,7 +20,7 @@ const ProfilePage = () => {
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4">User Profile</h2>
           {/* Add user profile details here */}
-          <p>Name: John Doe</p>
+          <p>Name: `John Doe`</p>
           <p>Email: john.doe@example.com</p>
           {/* Add more profile details as needed */}
           <button
