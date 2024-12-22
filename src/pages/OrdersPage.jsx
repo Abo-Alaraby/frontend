@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axios';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -9,12 +9,13 @@ const OrdersPage = () => {
   const [loading, setLoading] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
   const orderId = id;
+
   const fetchOrderDetails = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/order/${orderId}`, { withCredentials: true });
+      const response = await axios.get(`/order/${orderId}`, { withCredentials: true });
       setOrder(response.data);
       response.data.products.forEach(product => {
         fetchProductDetails(product.product);
@@ -30,7 +31,7 @@ const OrdersPage = () => {
   const fetchProductDetails = async (productId) => {
     if (!productDetails[productId]) { // Prevent refetching if already fetched
       try {
-        const response = await axios.get(`http://localhost:3000/product/${productId}`, { withCredentials: true });
+        const response = await axios.get(`/product/${productId}`, { withCredentials: true });
         setProductDetails(prevDetails => ({
           ...prevDetails,
           [productId]: response.data
@@ -44,7 +45,7 @@ const OrdersPage = () => {
 
   const cancelOrder = async () => {
     try {
-      await axios.delete(`http://localhost:3000/order/${orderId}`, { withCredentials: true });
+      await axios.delete(`/order/${orderId}`, { withCredentials: true });
       toast.success('Order cancelled successfully');
       navigate('/'); // Redirect to home or another page
     } catch (error) {
@@ -53,11 +54,15 @@ const OrdersPage = () => {
     }
   };
 
-
-  //add sending api
-  const handlePurchaseCompletion = () => {
-    toast.success('Thank you for your purchase!');
-    navigate('/Thankyou');
+  const handlePurchaseCompletion = async () => {
+    try {
+      await axios.patch(`/order/${orderId}`, { withCredentials: true });
+      toast.success('Order cancelled successfully');
+      navigate('/Thankyou'); // Redirect to home or another page
+    } catch (error) {
+      console.error('Failed to cancel order:', error);
+      toast.error(error.response?.data || 'Failed to cancel order');
+    }
   };
 
   const toggleDetailsVisibility = () => {

@@ -6,8 +6,21 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-
-
+  const [userLoggedIn,setUserLoggedIn] = useState(false)
+  useEffect(()=>{
+    const checkForJwtCookiePresent = () => {
+      const cookies = document.cookie.split(';');
+      let foundJwt = false;
+      cookies.forEach((cookie) => {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'jwt' && value) {
+          foundJwt = true;
+        }
+      });
+      setUserLoggedIn(foundJwt)
+    };
+    checkForJwtCookiePresent()
+  },[])
   useEffect(() => {
     fetchProducts();
   }, []);

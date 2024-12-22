@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import Navbar from '../components/ui/Navbar';
 import axios from '../api/axios';
 import { toast } from 'react-toastify';

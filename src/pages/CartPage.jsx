@@ -52,12 +52,11 @@ const CartPage = () => {
 
   const handleRemoveItem = async (productId) => {
     try {
-      const cartId = '6767bf1ffa261e1a87b8c693';
       if (!productId) {
         console.error('Product ID is undefined. Unable to remove item.');
         return;
       }
-      await axios.delete(`/cart/${cartId}/product/${productId}`, {
+      await axios.delete(`/cart/product/${productId}`, {
         withCredentials: true
       });
       fetchCartItems();
@@ -70,8 +69,7 @@ const CartPage = () => {
 
   const handleClearCart = async () => {
     try {
-      const cartId = '6767bf1ffa261e1a87b8c693';
-      await axios.delete(`/cart/${cartId}`);
+      await axios.delete(`/cart`);
       setCartItems([]);
       setCartTotal(0);
       toast.success('Cart cleared');
